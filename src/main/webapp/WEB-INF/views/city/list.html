@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<center>
+    <a href="/create-city"><h3>Create New City</h3></a>
+    <br>
+    <br>
+    </form><br/>
+    <h1>City List</h1>
+    <table border="2px" width="400px">
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Quoc gia</td>
+            <td>Edit</td>
+            <td>Delete</td>
+        </tr>
+
+        <tr th:each="city,rowStat : ${cities}">
+            <td th:text="${city.id}"></td>
+            <td><a th:href="@{/view-city/__${city.id}__}"><p th:text="${city.name}"></p></a></td>
+            <td th:text="${city.country.name}"></td>
+            <td><a th:href="@{/edit-city/__${city.id}__}">edit</a></td>
+            <td><a th:href="@{/delete-city/__${city.id}__}">delete</a></td>
+        </tr>
+
+    </table>
+    <div>
+        <a th:href="@{'/cities'(page=${cities.number - 1})}" th:if="${cities.hasPrevious()}">Previous</a>
+        <span th:text="${cities.number + 1}"></span>/<span th:text="${cities.totalPages}"></span>
+        <a th:href="@{'/cities'(page=${cities.number + 1})}" th:if="${cities.hasNext()}">Next</a>
+    </div>
+</center>
+
+</body>
+</html>
